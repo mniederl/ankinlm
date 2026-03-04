@@ -67,7 +67,6 @@ if (import.meta.env.FIREFOX) {
           const el = element as HTMLElement;
           el.style.padding = '0px 20px 0px 20px';
           el.style.marginRight = '10px';
-          el.style.color = '#ffffff';
         });
         donateBtn.addEventListener('click', () => {
           window.open('https://buymeacoffee.com/lkmss', '_blank');
