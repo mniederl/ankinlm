@@ -8,7 +8,7 @@ export default defineConfig({
 
     return {
       name: 'AnkiNLM',
-      version: '1.3.0',
+      version: '1.4.0',
       description:
         'The fastest way to export your generated Notebook LM flashcards and import them to your Anki decks',
 
