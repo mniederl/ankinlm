@@ -35,10 +35,27 @@ if (import.meta.env.FIREFOX) {
 
       observer.observe(document.body, { childList: true, subtree: true });
 
+      function getExportFilename() {
+        const titleInput = document.querySelector(
+          '.artifact-header input[formcontrolname="title"]'
+        ) as HTMLInputElement | null;
+        const rawTitle = titleInput?.value?.trim();
+
+        if (!rawTitle) return 'flashcards.tsv';
+
+        const sanitized = rawTitle
+          .replace(/[<>:"/\\|?*\x00-\x1F]/g, '')
+          .replace(/\s+/g, ' ')
+          .trim()
+          .replace(/[. ]+$/g, '');
+
+        return `${sanitized || 'flashcards'}.tsv`;
+      }
+
       function handleDownload(url: string) {
         const link = document.createElement('a');
         link.href = url;
-        link.download = 'flashcards.tsv';
+        link.download = getExportFilename();
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
