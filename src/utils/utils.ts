@@ -144,9 +144,13 @@ export const createTsvBlob = (data: string): Blob | undefined => {
     for (const quiz of parsedData.quiz) {
       const answer = quiz.answerOptions.find((opt) => opt.isCorrect);
       if (!answer) continue;
-      const question = escapeTsvField(normalizeMathJax(quiz.question));
+
+      const options = quiz.answerOptions
+        .map((opt, idx) => `${String.fromCharCode(65 + idx)}. ${normalizeMathJax(opt.text)}`)
+        .join('\n');
+      const front = escapeTsvField(`${normalizeMathJax(quiz.question)}\n${options}`);
       const correct = escapeTsvField(normalizeMathJax(answer.text));
-      rows.push(`${question}\t${correct}`);
+      rows.push(`${front}\t${correct}`);
     }
   }
 
